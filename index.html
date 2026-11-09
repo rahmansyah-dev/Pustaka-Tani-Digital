@@ -32,7 +32,9 @@ header{
   position:sticky;top:0;z-index:20;
   display:flex;align-items:center;gap:10px;
 }
-header .logo{width:34px;height:34px;border-radius:10px;background:var(--hijau-segar);display:grid;place-items:center;font-size:19px}
+/* LOGO HEADER (gambar) */
+header .logo-container{width:36px;height:36px;border-radius:10px;overflow:hidden;background:#fff;display:grid;place-items:center;flex-shrink:0}
+header .logo-container img{width:100%;height:100%;object-fit:cover}
 header h1{font-size:16px;font-weight:600;line-height:1.2}
 header small{display:block;font-size:11px;font-weight:400;opacity:.8}
 main{max-width:720px;margin:0 auto;padding:18px}
@@ -43,13 +45,23 @@ main{max-width:720px;margin:0 auto;padding:18px}
 h2{font-size:21px;color:var(--hijau-tua);line-height:1.3;margin-bottom:6px}
 h3{font-size:16px;color:var(--hijau-tua);margin-bottom:4px}
 p.intro{color:var(--abu);margin-bottom:16px}
-.hero{
-  background:var(--hijau-tua);color:#fff;border-radius:20px;padding:24px 20px;margin-bottom:20px;
-  background-image:radial-gradient(circle at 100% 0,rgba(27,163,130,.55),transparent 55%);
+/* BANNER GAMBAR LATAR DI SETIAP TAB
+   Gambar diatur lewat variabel --bg pada atribut style tiap banner di HTML.
+   Overlay gradien hijau tua (::before) menjaga teks putih tetap terbaca. */
+.tab-banner{
+  position:relative;border-radius:20px;padding:26px 20px;margin-bottom:20px;color:#fff;overflow:hidden;
+  background-color:var(--hijau-tua); /* cadangan jika gambar gagal dimuat */
+  background-image:var(--bg);background-size:cover;background-position:center;
 }
-.hero h2{color:#fff;font-size:24px}
-.hero p{opacity:.92;margin-top:8px}
-.hero .btn{margin-top:16px}
+.tab-banner::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(135deg,rgba(13,71,55,.92) 0%,rgba(13,71,55,.72) 100%);
+}
+.tab-banner-content{position:relative;z-index:2}
+.tab-banner h2{color:#fff;font-size:22px;margin-bottom:6px;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.tab-banner p{color:#e3f4ee;font-size:14px;opacity:.95}
+.tab-banner.hero h2{font-size:24px}
+.tab-banner .btn{margin-top:16px}
 .kartu{background:var(--kartu);border:1px solid var(--garis);border-radius:16px;padding:16px;margin-bottom:12px}
 .pilar{display:flex;gap:14px;align-items:flex-start}
 .pilar .ikon{flex:0 0 44px;height:44px;border-radius:12px;background:#e3f4ee;display:grid;place-items:center;font-size:22px}
@@ -111,7 +123,10 @@ footer small{display:block;font-size:12px}
 <body>
 
 <header>
-  <div class="logo" aria-hidden="true">🌾</div>
+  <!-- LOGO: ganti URL pada src di bawah dengan link/jalur logo Anda (.png/.jpg/.svg), mis. img/logo.png -->
+  <div class="logo-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/628/628324.png" alt="Logo Pustaka Tani" onerror="this.style.display='none'">
+  </div>
   <h1>Pustaka Tani Digital Desa<small>Pengabdian Masyarakat PPKn · Universitas Negeri Malang</small></h1>
 </header>
 
@@ -119,10 +134,13 @@ footer small{display:block;font-size:12px}
 
 <!-- ============ TAB 1: BERANDA ============ -->
 <section id="beranda" class="tab aktif" role="tabpanel">
-  <div class="hero">
-    <h2>Panduan hama dan pertanian, ada di genggaman Bapak/Ibu Tani.</h2>
-    <p>Program pengabdian mahasiswa Universitas Negeri Malang untuk membantu petani desa mengenali hama, meracik pestisida nabati, dan menghubungi penyuluh dengan cepat.</p>
-    <button class="btn" data-ke="hama">Cek hama sekarang</button>
+  <!-- BANNER LATAR BERANDA: ganti URL gambar pada --bg di bawah (disarankan lebar 800 px ke atas) -->
+  <div class="tab-banner hero" style="--bg:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=800&amp;q=80');">
+    <div class="tab-banner-content">
+      <h2>Panduan hama dan pertanian, ada di genggaman Bapak/Ibu Tani.</h2>
+      <p>Program pengabdian mahasiswa Universitas Negeri Malang untuk membantu petani desa mengenali hama, meracik pestisida nabati, dan menghubungi penyuluh dengan cepat.</p>
+      <button class="btn" data-ke="hama">Cek hama sekarang</button>
+    </div>
   </div>
 
   <h2>Tiga layanan kami</h2>
@@ -154,15 +172,20 @@ footer small{display:block;font-size:12px}
 
 <!-- ============ TAB 2: KATALOG HAMA ============ -->
 <section id="hama" class="tab" role="tabpanel">
-  <h2>Katalog Hama dan Penyakit</h2>
-  <p class="intro">Ketuk nama hama untuk melihat foto, gejala, dan solusi darurat.</p>
+  <!-- BANNER LATAR HAMA: ganti URL gambar pada --bg di bawah (disarankan lebar 800 px ke atas) -->
+  <div class="tab-banner" style="--bg:url('https://images.unsplash.com/photo-1530507629858-e4977d30e9e0?auto=format&amp;fit=crop&amp;w=800&amp;q=80');">
+    <div class="tab-banner-content">
+      <h2>Katalog Hama dan Penyakit</h2>
+      <p>Ketuk nama hama untuk melihat foto, gejala, dan solusi darurat pertolongan pertama.</p>
+    </div>
+  </div>
 
   <!-- 1. BLAST PADI -->
   <details class="hama">
     <summary><span class="ikon">🌾</span><div><strong>Blast Padi</strong><span class="sub">Penyakit jamur · Padi</span></div></summary>
     <div class="isi">
       <!-- FOTO #1: ganti isi src dengan link/jalur gambar Anda (mis. img/blast.jpg). Jika gagal dimuat, gambar otomatis disembunyikan. -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Magnaporthe_oryzae_01.jpg/640px-Magnaporthe_oryzae_01.jpg" alt="Gejala Blast Padi" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTkRXWtjxXjCUt8d8dPndyhkKqlsKD7-wG3yVk9Dk-xQ&amp;s=10" alt="Gejala Blast Padi" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
       <h4>Gejala</h4>
       <ul>
         <li>Bercak berbentuk belah ketupat pada daun, tengahnya abu-abu dan tepinya cokelat.</li>
@@ -177,7 +200,7 @@ footer small{display:block;font-size:12px}
     <summary><span class="ikon">🦗</span><div><strong>Wereng Cokelat</strong><span class="sub">Hama serangga · Padi</span></div></summary>
     <div class="isi">
       <!-- FOTO #2: ganti isi src dengan link/jalur gambar Anda (mis. img/blast.jpg). Jika gagal dimuat, gambar otomatis disembunyikan. -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Nilaparvata_lugens_%28Brown_planthopper%29.jpg/640px-Nilaparvata_lugens_%28Brown_planthopper%29.jpg" alt="Wereng Batang Cokelat" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOwMw5A2fi22vsFEdHguYC1ROp1yJ5PwDrUJvjkbJKxf2QHU-sNvru6VQ&amp;s=10" alt="Wereng Batang Cokelat" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
       <h4>Gejala</h4>
       <ul>
         <li>Serangga kecil cokelat berkumpul di pangkal batang, dekat air.</li>
@@ -192,7 +215,7 @@ footer small{display:block;font-size:12px}
     <summary><span class="ikon">🌶️</span><div><strong>Antraknosa Cabai (Patek)</strong><span class="sub">Penyakit jamur · Cabai</span></div></summary>
     <div class="isi">
       <!-- FOTO #3: ganti isi src dengan link/jalur gambar Anda (mis. img/blast.jpg). Jika gagal dimuat, gambar otomatis disembunyikan. -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Colletotrichum_gloeosporioides_chili.jpg/640px-Colletotrichum_gloeosporioides_chili.jpg" alt="Antraknosa Patek Cabai" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRks5LdzbtR87RjxiNQ7HZmTR1-zmnDu3_I0zpuMlBELg&amp;s=10" alt="Antraknosa Patek Cabai" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
       <h4>Gejala</h4>
       <ul>
         <li>Bercak cokelat kehitaman, cekung, pada buah cabai, lalu buah mengeriput dan mengering.</li>
@@ -207,7 +230,7 @@ footer small{display:block;font-size:12px}
     <summary><span class="ikon">🍊</span><div><strong>Kutudaun Jeruk</strong><span class="sub">Hama serangga · Jeruk</span></div></summary>
     <div class="isi">
       <!-- FOTO #4: ganti isi src dengan link/jalur gambar Anda (mis. img/blast.jpg). Jika gagal dimuat, gambar otomatis disembunyikan. -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Aphis_sp._%28Aphididae%29_on_citrus_plant.jpg/640px-Aphis_sp._%28Aphididae%29_on_citrus_plant.jpg" alt="Kutudaun Jeruk" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
+      <img src="https://media.istockphoto.com/id/1477253506/id/foto/banyak-kutu-daun-di-bawah-daun-tanaman-jeruk-kutu-daun-mengisap-hama-yang-menghisap-getah-sel.jpg?s=612x612&amp;w=0&amp;k=20&amp;c=ZRMoeX4XPHj3NS6FJD_-eY0o5N6RjLt0b0hNEB2coXQ=" alt="Kutudaun Jeruk" loading="lazy" onerror="this.style.display='none'" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-top:12px; background:#f0f4f2;">
       <h4>Gejala</h4>
       <ul>
         <li>Kutu kecil hitam atau hijau menggerombol di pucuk dan daun muda.</li>
@@ -222,8 +245,13 @@ footer small{display:block;font-size:12px}
 
 <!-- ============ TAB 3: RESEP & PRODUK ============ -->
 <section id="resep" class="tab" role="tabpanel">
-  <h2>Resep dan Produk</h2>
-  <p class="intro">Pestisida nabati yang bisa dibuat sendiri dari bahan sekitar.</p>
+  <!-- BANNER LATAR RESEP: ganti URL gambar pada --bg di bawah (disarankan lebar 800 px ke atas) -->
+  <div class="tab-banner" style="--bg:url('https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&amp;fit=crop&amp;w=800&amp;q=80');">
+    <div class="tab-banner-content">
+      <h2>Resep dan Produk</h2>
+      <p>Pestisida nabati racikan mandiri dari bahan alami sekitar dan rekomendasi obat resmi.</p>
+    </div>
+  </div>
 
   <div class="kartu">
     <h3>🌿 Pestisida Daun Nimba</h3>
@@ -256,7 +284,7 @@ footer small{display:block;font-size:12px}
 
   <div class="kartu">
     <!-- FOTO PRODUK #1: ganti isi src dengan link gambar produk Shopee -->
-    <img src="https://down-id.img.susercontent.com/file/id-11134207-7r988-lx9v1z3q91mxc2" alt="Fungisida Blastgone 75 WP" loading="lazy" style="width:100%; height:180px; object-fit:contain; border-radius:10px; margin-bottom:12px; background:#f9f9f9;">
+    <img src="https://down-id.img.susercontent.com/file/sg-11134201-7rdyd-lz9zq6vqb49ue7.webp" alt="Fungisida Blastgone 75 WP" loading="lazy" style="width:100%; height:180px; object-fit:contain; border-radius:10px; margin-bottom:12px; background:#f9f9f9;">
     <h3>Fungisida (Blastgone 75 WP)</h3>
     <p style="color:var(--abu);font-size:14px;margin-bottom:10px">Obat jamur untuk blast padi dan antraknosa cabai (25 Gram Kemasan Pabrik).</p>
     <!-- LINK SHOPEE #1 - FUNGISIDA: ganti isi href dengan link produk Anda -->
@@ -265,7 +293,7 @@ footer small{display:block;font-size:12px}
 
   <div class="kartu">
     <!-- FOTO PRODUK #2: ganti isi src dengan link gambar produk Shopee -->
-    <img src="https://down-id.img.susercontent.com/file/id-11134207-7r98o-lx9v1z3qaa7d86" alt="Insektisida Confidor 5WP" loading="lazy" style="width:100%; height:180px; object-fit:contain; border-radius:10px; margin-bottom:12px; background:#f9f9f9;">
+    <img src="https://down-id.img.susercontent.com/file/id-11134207-81ztg-mq6bqb8qu0i661.webp" alt="Insektisida Confidor 5WP" loading="lazy" style="width:100%; height:180px; object-fit:contain; border-radius:10px; margin-bottom:12px; background:#f9f9f9;">
     <h3>Insektisida (Confidor 5WP)</h3>
     <p style="color:var(--abu);font-size:14px;margin-bottom:10px">Pembasmi serangga seperti wereng cokelat dan kutudaun (10 Gram Repack).</p>
     <!-- LINK SHOPEE #2 - INSEKTISIDA: ganti isi href dengan link produk Anda -->
@@ -275,8 +303,13 @@ footer small{display:block;font-size:12px}
 
 <!-- ============ TAB 4: BUKU TELEPON DESA ============ -->
 <section id="kontak" class="tab" role="tabpanel">
-  <h2>Buku Telepon Desa</h2>
-  <p class="intro">Ketuk tombol untuk langsung chat lewat WhatsApp.</p>
+  <!-- BANNER LATAR KONTAK: ganti URL gambar pada --bg di bawah (disarankan lebar 800 px ke atas) -->
+  <div class="tab-banner" style="--bg:url('https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&amp;fit=crop&amp;w=800&amp;q=80');">
+    <div class="tab-banner-content">
+      <h2>Buku Telepon Desa</h2>
+      <p>Ketuk tombol untuk konsultasi langsung lewat WhatsApp dengan penyuluh dan kios tani.</p>
+    </div>
+  </div>
 
   <!-- ==========================================================
        CARA MENGGANTI NOMOR WHATSAPP
